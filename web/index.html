@@ -5,32 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="./api.png">
+  <link rel="stylesheet" href="./styles.css">
   <title>Movie API</title>
-  <style>
-    main {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,
-          minmax(250px,
-            1fr));
-      gap: 20px;
-      justify-content: center;
-      max-width: 1000px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    article {
-      text-align: center;
-      border: 1px solid #ccc;
-      padding: 15px 10px;
-      border-radius: 10px;
-    }
-
-    img {
-      height: auto;
-      width: 220px;
-    }
-  </style>
   <script type="module">
     fetch('http://localhost:3000/movies')
       .then(res => res.json())
@@ -48,7 +24,7 @@
               <img src="${movie.poster}" alt="${movie.title}">
               <p>${movie.year}</p>
 
-              <button>Eliminar</button>
+              <button class="article-btn" role="button">Eliminar</button>
             </article>
           `
           }).join('')
@@ -76,8 +52,10 @@
 </head>
 
 <body>
-  <h1>Catálogo de pelícualas</h1>
-  <main></main>
+  <div class="container">
+    <h1 class="container-title">Catálogo de películas</h1>
+    <main></main>
+  </div>
 </body>
 
 </html>
