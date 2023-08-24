@@ -1,20 +1,20 @@
 ### All the movies
-GET http://localhost:3000/movies
+GET https://rest-api-ytw2-dev.fl0.io/movies
 
 ### Movie by ID
-GET http://localhost:3000/movies/7e3fd5ab-60ff-4ae2-92b6-9597f0308d1
+GET https://rest-api-ytw2-dev.fl0.io/movies/7e3fd5ab-60ff-4ae2-92b6-9597f0308d1
 
 ### Movies by genre
-GET http://localhost:3000/movies?genre=sci-fi
+GET https://rest-api-ytw2-dev.fl0.io/movies?genre=sci-fi
 
 ### Create a Movie with POST
-POST http://localhost:3000/movies
+POST https://rest-api-ytw2-dev.fl0.io/movies
 Content-Type: application/json
 
 {
-  "title": "Peluches en apuros",
-  "year": 2019,
-  "director": "Daniel Dev",
+  "title": "The shawshank redemption",
+  "year": 1994,
+  "director": "Daniel Vasquez",
   "duration": 142,
   "poster": "https://i.ebayimg.com/images/g/4goAAOSwMyBe7hnQ/s-l1200.webp",
   "genre": [
@@ -22,17 +22,17 @@ Content-Type: application/json
     "Action",
     "Adventure"
   ],
-  "rate": 1
+  "rate": 9
 }
 
 ### Update a movie data
-PATCH http://localhost:3000/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+PATCH https://rest-api-ytw2-dev.fl0.io/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
 Content-Type: application/json
 
 {
-  "title": "Peluches en el universo",
+  "title": "New title",
   "year": 2024
 }
 
 ### Delete a movie
-DELETE http://localhost:3000/movies/c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf
+DELETE https://rest-api-ytw2-dev.fl0.io/movies/c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf

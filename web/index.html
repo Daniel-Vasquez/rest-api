@@ -8,23 +8,28 @@
   <link rel="stylesheet" href="./styles.css">
   <title>Movie API</title>
   <script type="module">
-    fetch('http://localhost:3000/movies')
+    fetch('https://rest-api-ytw2-dev.fl0.io/movies')
       .then(res => res.json())
       .then(movies => {
         if (movies.length === 0) {
           const html = `<h1>Sin películas</h1>`
           document.querySelector('main').innerHTML = html
-
         } else {
-
-          const html = movies.map(movie => {
+          const html = movies.map(({ id, title, poster, year }) => {
             return `
-            <article data-id="${movie.id}">
-              <h2>${movie.title}</h2>
-              <img src="${movie.poster}" alt="${movie.title}">
-              <p>${movie.year}</p>
+            <article data-id="${id}" class="card">
+              <div class="video_thumb circle">
+                <img class="circle-img" src="${poster}" alt="${title}" />
+                <div class="play-button"></div>
+              </div> 
+              <div class="overlay"></div>
 
-              <button class="article-btn" role="button">Eliminar</button>
+              <div class="card-info">
+                <p class="card-info__title">${title}</h2>
+                <p class="card-info__text">${year}</p>
+              </div>
+
+              <button class="button-48" role="button"><span class="text">Eliminar</span></button>
             </article>
           `
           }).join('')
@@ -36,7 +41,7 @@
             const article = e.target.closest('article')
             const id = article.dataset.id
 
-            fetch(`http://localhost:3000/movies/${id}`, {
+            fetch(`https://rest-api-ytw2-dev.fl0.io/movies/${id}`, {
               method: 'DELETE'
             })
               .then(res => {
@@ -54,7 +59,7 @@
 <body>
   <div class="container">
     <h1 class="container-title">Catálogo de películas</h1>
-    <main></main>
+    <main class="main"></main>
   </div>
 </body>
 
