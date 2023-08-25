@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="./api.png">
   <link rel="stylesheet" href="./styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <title>Movie API</title>
+  
   <script type="module">
     fetch('https://rest-api-ytw2-dev.fl0.io/movies')
       .then(res => res.json())
@@ -15,7 +17,7 @@
           const html = `<h1>Sin películas</h1>`
           document.querySelector('main').innerHTML = html
         } else {
-          const html = movies.map(({ id, title, poster, year }) => {
+          const html = movies.map(({ id, title, genre, poster, year }) => {
             return `
             <article data-id="${id}" class="card">
               <div class="video_thumb circle">
@@ -27,6 +29,7 @@
               <div class="card-info">
                 <p class="card-info__title">${title}</h2>
                 <p class="card-info__text">${year}</p>
+                <p>${genre[0]}</p>
               </div>
 
               <button id="card-btn" class="button-48">Eliminar</button>
@@ -36,12 +39,12 @@
           document.querySelector('main').innerHTML = html
         }
 
-        document.addEventListener('click', e => {
+        document.addEventListener('click', async (e) => {
           if (e.target.matches('#card-btn')) {
             const article = e.target.closest('article')
             const id = article.dataset.id
 
-            fetch(`https://rest-api-ytw2-dev.fl0.io/movies/${id}`, {
+            await fetch(`https://rest-api-ytw2-dev.fl0.io/movies/${id}`, {
               method: 'DELETE'
             })
               .then(res => {
@@ -52,15 +55,133 @@
           }
 
         })
+
+        async function addMovie(title, poster, year, director, duration, genre) {
+          const data = {
+            title: title,
+            poster: poster,
+            year: year,
+            director: director,
+            duration: duration,
+            genre: genre,
+          };
+
+          await fetch(`https://rest-api-ytw2-dev.fl0.io/movies`, {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin", 
+            headers: {
+              "Content-Type": "application/json",
+            },
+            redirect: "follow", 
+            referrerPolicy: "no-referrer", 
+            body: JSON.stringify(data),
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('La solicitud no fue exitosa');
+              }
+              return response.json();
+            })
+            .then(newMovie => {
+              console.log('Nueva película agregada:', newMovie);
+            })
+            .catch(err => {
+              console.error('Error al agregar la película:', err);
+            });
+        }
+
+        const form = document.querySelector('#add-movie-form');
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const title = form.querySelector('#title').value;
+          const year = parseInt(form.querySelector('#year').value);
+          const duration = parseInt(form.querySelector('#duration').value);
+          const director = form.querySelector('#director').value;
+          const genre = document.getElementById('genreSelect').value
+
+          const imageUrls = [
+            'https://cdn.pixabay.com/photo/2022/07/17/06/30/sunrise-7326601_640.jpg',
+            'https://e0.pxfuel.com/wallpapers/634/215/desktop-wallpaper-landscape-mountains-retro-color-minimal-poster-style-illustration-minimal-brown-thumbnail.jpg',
+            'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR8bqXUHc16pBnXHLvgYAVkGE89CaHHcODCwQa6XNPGKhkkLsBh',
+            'https://i.pinimg.com/736x/ee/0c/c2/ee0cc2ff8a9836ccb1982b37f4507e3e--hipster-iphone-wallpapers-iphone-backgrounds.jpg',
+            'https://www.enwallpaper.com/wp-content/uploads/e7ed0e08529337cafd68c5ffb83cc865.jpg'
+          ];
+
+          const getRandomIndex = max => Math.floor(Math.random() * max);
+
+          const setRandomImage = () => imageUrls[getRandomIndex(imageUrls.length)];
+
+          const poster = setRandomImage();
+
+          await addMovie(title, poster, year, director, duration, genre.split(','));
+
+          form.reset();
+          window.location.reload();
+        });
       })
   </script>
 </head>
 
 <body>
-  <div class="container">
-    <h1 class="container-title">Catálogo de películas</h1>
-    <main class="main"></main>
-  </div>
+  <section class="container">
+    <h1 class="container-title">Crea tu película:</h1>
+    <section class="form p-6">
+      <form id="add-movie-form" class="space-y-4">
+        <label for="title" class="block font-medium">Título:</label>
+        <input type="text" id="title" name="title"
+          class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" required>
+
+        <label for="year" class="block font-medium">Año:</label>
+        <input type="number" id="year" name="year"
+          class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" min="1900"
+          max="2024">
+
+        <label for="director" class="block font-medium">Director:</label>
+        <input type="text" id="director" name="director"
+          class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" required>
+
+        <label for="duration" class="block font-medium">Duración:</label>
+        <input type="text" id="duration" name="duration"
+          class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" required>
+
+        <label for="genreSelect" class="block font-medium">Selecciona un género:</label>
+        <select id="genreSelect"
+          class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" required>
+          <option value="Action">Action</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Drama">Drama</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Horror">Horror</option>
+          <option value="Biography">Biography</option>
+          <option value="Crime">Crime</option>
+          <option value="Romance">Romance</option>
+          <option value="Family">Family</option>
+          <option value="Sci-Fi">Sci-Fi</option>
+        </select>
+
+        <div>
+          <span class="opacity-65 font-semibold bg-white p-2">
+            *La imagen se genera automáticamente*
+          </span>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Agregar
+            Película</button>
+        </div>
+      </form>
+    </section>
+
+    <section>
+      <h1 class="container-title">Catálogo de películas</h1>
+      <main class="main"></main>
+    </section>
+
+  </section>
 </body>
 
 </html>

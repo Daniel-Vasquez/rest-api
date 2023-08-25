@@ -111,8 +111,10 @@ body {
 .circle-img {
   min-height: 200px;
   width: 100%;
-  height: auto;
+  max-height: 350px;
+  height: 100%;
   margin: 0 auto;
+  object-fit: contain;
 }
 
 .play-button {
@@ -193,7 +195,7 @@ body {
   display: inline-block;
   font-family: Clarkson, Helvetica, sans-serif;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0;
   line-height: 1em;
   margin: 0;
