@@ -22,7 +22,7 @@ export class MovieModel {
   static async post({ input }) {
     const newMovie = {
       id: randomUUID(),
-      ...input
+      ...input,
     }
 
     movies.unshift(newMovie);

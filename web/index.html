@@ -29,7 +29,7 @@
                 <p class="card-info__text">${year}</p>
               </div>
 
-              <button class="button-48"><span class="text">Eliminar</span></button>
+              <button id="card-btn" class="button-48">Eliminar</button>
             </article>
           `
           }).join('')
@@ -37,7 +37,7 @@
         }
 
         document.addEventListener('click', e => {
-          if (e.target.matches('button')) {
+          if (e.target.matches('#card-btn')) {
             const article = e.target.closest('article')
             const id = article.dataset.id
 

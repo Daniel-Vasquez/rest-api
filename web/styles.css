@@ -18,7 +18,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
   background: #f9f9f9;
 }
 
@@ -30,8 +30,8 @@ body {
 }
 
 .container-title {
-  margin: 0;
-  margin-bottom: 25px;
+  margin: 20px 0;
+  font-size: 1.55rem;
   color: var(--primary-color);
 }
 
@@ -57,7 +57,7 @@ body {
   border-top-right-radius: 10px;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 14px 26px rgba(0,0,0,0.04);
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.04);
   transition: all 0.3s ease-out;
   padding: 20px 25px;
   border-radius: 5px;
@@ -67,7 +67,7 @@ body {
 
 .card:hover {
   /* transform: translateY(-5px) scale(1.005) translateZ(0); */
-  box-shadow: 0 24px 36px rgba(0,0,0,0.11),
+  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11),
     0 24px 46px var(--box-shadow-color);
 }
 
@@ -154,7 +154,7 @@ body {
 .overlay {
   width: 118px;
   height: 118px;
-  position: absolute; 
+  position: absolute;
   border-radius: 50%;
   background: var(--bg-color-seconds);
   top: 20%;
@@ -179,7 +179,7 @@ body {
 }
 
 .card-info__title,
-.card-info__text {  
+.card-info__text {
   margin: 0;
   margin-bottom: 4px;
 }
@@ -188,11 +188,10 @@ body {
   appearance: none;
   background-color: #FFFFFF;
   border-width: 0;
-  box-sizing: border-box;
   color: #000000;
   cursor: pointer;
   display: inline-block;
-  font-family: Clarkson,Helvetica,sans-serif;
+  font-family: Clarkson, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
@@ -206,7 +205,7 @@ body {
   text-decoration: none;
   text-rendering: geometricprecision;
   text-transform: uppercase;
-  transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1),background-color 100ms cubic-bezier(.694, 0, 0.335, 1),color 100ms cubic-bezier(.694, 0, 0.335, 1);
+  transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), background-color 100ms cubic-bezier(.694, 0, 0.335, 1), color 100ms cubic-bezier(.694, 0, 0.335, 1);
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -214,16 +213,16 @@ body {
   white-space: nowrap;
 }
 
-.button-48:hover span{
-  color: white;
-}
-
 .button-48:before {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
   animation: opacityFallbackOut .5s step-end forwards;
   backface-visibility: hidden;
   background-color: #e91e63;
   clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
-  content: "";
+  content: "Eliminar";
   height: 100%;
   left: 0;
   position: absolute;
@@ -240,13 +239,6 @@ body {
 
 .button-48:after {
   background-color: #FFFFFF;
-}
-
-.button-48 span {
-  z-index: 1;
-  position: relative;
-  font-weight: 600;
-  letter-spacing: 1px;
 }
 
 .button-48,
